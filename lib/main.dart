@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -5,10 +6,13 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:s1_hydrated/counter_cubit.dart';
 
+import 'firebase_options.dart';
 import 'home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   String dir = (await getApplicationDocumentsDirectory()).path;
   HydratedStorage storage = await HydratedStorage.build(
     storageDirectory: HydratedStorageDirectory(join(dir, 'hydrated_bloc')),
